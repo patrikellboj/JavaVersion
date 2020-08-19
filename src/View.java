@@ -12,6 +12,7 @@ public class View extends JFrame{
     JButton open;
     JLabel emptySpace;
     JButton quit;
+    Info info;
 
 
     public View() {
@@ -28,6 +29,7 @@ public class View extends JFrame{
         open = new JButton("OPEN");
         emptySpace = new JLabel();
         quit = new JButton("QUIT");
+        info = new Info();
 
 //---------- OUTPUT PANEL --------------
         panelOutput.setBackground(new Color(43, 43, 43));
@@ -36,11 +38,11 @@ public class View extends JFrame{
         display.setEditable(false);
         display.setForeground(Color.white);
         display.setFont(new Font("Georgia", Font.PLAIN, 14));
-        display.append("  User account name\t" + System.getProperty("user.name") + "\n\n" );
-        display.append("  Operating system name\t" + System.getProperty("os.name") + "\n\n" );
-        display.append("  Operating system version\t" + System.getProperty("os.version") + "\n\n" );
-        display.append("  JRE version number\t" + System.getProperty("java.version") + "\n\n" );
-        display.append("  Installation directory for JRE\t" + System.getProperty("java.home") + "\n\n" );
+        display.append("  User account name\t" + info.getOSUserName() + "\n\n" );
+        display.append("  Operating system name\t" + info.getOSName() + "\n\n" );
+        display.append("  Operating system version\t" + info.getOSVersion() + "\n\n" );
+        display.append("  JRE version number\t" + info.getJavaVersion() + "\n\n" );
+        display.append("  Installation directory for JRE\t" + info.getJavaHomeDir() + "\n\n" );
 
 
 
