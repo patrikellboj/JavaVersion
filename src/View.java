@@ -22,6 +22,8 @@ public class View extends JFrame{
 
     public void createGUI(){
 
+        this.setTitle("Test!");
+
         panelOutput = new JPanel();
         panelInput = new JPanel();
         display = new JTextArea();
