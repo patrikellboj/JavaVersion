@@ -31,7 +31,7 @@ public class View extends JFrame{
         panelInput = new JPanel();
         display = new JTextArea();
         openJavaDirBtn = new JButton("Open java directory");
-        downloadBtn = new JButton("DOWNLOAD");
+        downloadBtn = new JButton("Download Java");
         emptySpace = new JLabel();
         quitBtn = new JButton("QUIT");
         info = new Info();
@@ -51,11 +51,11 @@ public class View extends JFrame{
         panelOutput.add(display);
 
 //------------ INPUT PANEL -------------
-        openJavaDirBtn.setPreferredSize(new Dimension(70,28));
+        openJavaDirBtn.setPreferredSize(new Dimension(150,28));
         panelInput.add(openJavaDirBtn);
-        downloadBtn.setPreferredSize(new Dimension(90,28));
+        downloadBtn.setPreferredSize(new Dimension(150,28));
         panelInput.add(downloadBtn);
-        emptySpace.setPreferredSize(new Dimension(302,28));
+        emptySpace.setPreferredSize(new Dimension(182,28));
         panelInput.add(emptySpace);
         quitBtn.setPreferredSize(new Dimension(70,28));
         panelInput.add(quitBtn);
