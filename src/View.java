@@ -1,12 +1,13 @@
-//import com.company.Controller.Controller;
-//import com.company.Model.Response;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 
 public class View extends JFrame{
+
+    //Program utils
+    private Utils utils = new Utils();
 
     //Controller controller;
     JPanel panelOutput, panelInput;
@@ -14,6 +15,7 @@ public class View extends JFrame{
     JButton openJavaDirBtn;
     JLabel emptySpace;
     JButton quitBtn;
+    JButton downloadBtn;
     Info info;
 
 
@@ -28,7 +30,8 @@ public class View extends JFrame{
         panelOutput = new JPanel();
         panelInput = new JPanel();
         display = new JTextArea();
-        openJavaDirBtn = new JButton("OPEN");
+        openJavaDirBtn = new JButton("Open java directory");
+        downloadBtn = new JButton("Download Java");
         emptySpace = new JLabel();
         quitBtn = new JButton("QUIT");
         info = new Info();
@@ -45,18 +48,24 @@ public class View extends JFrame{
         display.append("  Operating system version\t" + info.getOSVersion() + "\n\n" );
         display.append("  JRE version number\t" + info.getJavaVersion() + "\n\n" );
         display.append("  Installation directory for JRE\t" + info.getJavaHomeDir() + "\n\n" );
-
-
-
         panelOutput.add(display);
 
 //------------ INPUT PANEL -------------
-        openJavaDirBtn.setPreferredSize(new Dimension(70,28));
+        openJavaDirBtn.setPreferredSize(new Dimension(150,28));
         panelInput.add(openJavaDirBtn);
-        emptySpace.setPreferredSize(new Dimension(412,28));
+        downloadBtn.setPreferredSize(new Dimension(150,28));
+        panelInput.add(downloadBtn);
+        emptySpace.setPreferredSize(new Dimension(182,28));
         panelInput.add(emptySpace);
         quitBtn.setPreferredSize(new Dimension(70,28));
         panelInput.add(quitBtn);
+
+//        Dimension buttonBounds = new Dimension(40,40);
+//        panelInput.setLayout(new GridLayout(1,2));
+//        open.setPreferredSize(buttonBounds);
+//        panelInput.add(open);
+//        quit.setPreferredSize(buttonBounds);
+//        panelInput.add(quit);
 
 //-------------- FRAME -------------
         this.setTitle("Java Version");
@@ -70,23 +79,17 @@ public class View extends JFrame{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-
     public void createListeners() {
-
         quitBtn.addActionListener(e -> {
             System.exit(0);
         });
 
         openJavaDirBtn.addActionListener(e -> {
-            Desktop desktop = Desktop.getDesktop();
-            File dirToOpen;
-            try {
-                dirToOpen = new File(info.getJavaHomeDir());
-                desktop.open(dirToOpen);
-            } catch (IllegalArgumentException | IOException iae) {
-                System.out.println("Directory not found");
-            }
+            utils.openDiskDirectory(System.getProperty("java.home"));  //TODO ersätt system.get
+        });
+
+        downloadBtn.addActionListener(e -> {
+            utils.openWebPage("https://www.oracle.com/java/technologies/");
         });
     }
-
 }
