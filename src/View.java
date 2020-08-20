@@ -1,18 +1,22 @@
 //import com.company.Controller.Controller;
 //import com.company.Model.Response;
 
+import javax.rmi.CORBA.Util;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class View extends JFrame{
 
-    //Controller controller;
-    JPanel panelOutput, panelInput;
-    JTextArea display;
-    JButton open;
-    JLabel emptySpace;
-    JButton quit;
+    //Program utils
+    private Utils utils = new Utils();
 
+    //Controller controller;
+    private JPanel panelOutput, panelInput;
+    private JTextArea display;
+    private JButton open;
+    private JLabel emptySpace;
+    private JButton quit;
 
     public View() {
         //controller = new Controller();
@@ -21,13 +25,10 @@ public class View extends JFrame{
     }
 
     public void createGUI(){
-
-        this.setTitle("Test!");
-
         panelOutput = new JPanel();
         panelInput = new JPanel();
         display = new JTextArea();
-        open = new JButton("OPEN");
+        open = new JButton("Open java home directory");
         emptySpace = new JLabel();
         quit = new JButton("QUIT");
 
@@ -42,18 +43,24 @@ public class View extends JFrame{
         display.append("  Operating system name\t" + System.getProperty("os.name") + "\n\n" );
         display.append("  Operating system version\t" + System.getProperty("os.version") + "\n\n" );
         display.append("  JRE version number\t" + System.getProperty("java.version") + "\n\n" );
-        display.append("  Installation directory for JRE\t" + System.getProperty("java.home") + "\n\n" );
-
-
-
+        display.append("  Installation directory for JRE\t " + System.getProperty("java.home") + "\n\n" );
         panelOutput.add(display);
 
 //------------ INPUT PANEL -------------
-        open.setPreferredSize(new Dimension(70,28));
+
+        /*open.setPreferredSize(new Dimension(180,28));
         panelInput.add(open);
-        emptySpace.setPreferredSize(new Dimension(412,28));
+        emptySpace.setPreferredSize(new Dimension(310,28));
         panelInput.add(emptySpace);
         quit.setPreferredSize(new Dimension(70,28));
+        panelInput.add(quit);
+        */
+
+        Dimension buttonBounds = new Dimension(40,40);
+        panelInput.setLayout(new GridLayout(1,2));
+        open.setPreferredSize(buttonBounds);
+        panelInput.add(open);
+        quit.setPreferredSize(buttonBounds);
         panelInput.add(quit);
 
 //-------------- FRAME -------------
@@ -68,15 +75,13 @@ public class View extends JFrame{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-
     public void createListeners() {
-
         quit.addActionListener(e -> {
             System.exit(0);
         });
 
         open.addActionListener(e -> {
+            utils.openDiskDirectory(System.getProperty("java.home"));  //TODO ersätt system.get
         });
     }
-
 }
