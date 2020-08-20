@@ -1,8 +1,8 @@
-//import com.company.Controller.Controller;
-//import com.company.Model.Response;
-
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 
 public class View extends JFrame{
 
@@ -15,6 +15,7 @@ public class View extends JFrame{
     JButton openJavaDirBtn;
     JLabel emptySpace;
     JButton quitBtn;
+    JButton downloadBtn;
     Info info;
 
 
@@ -30,6 +31,7 @@ public class View extends JFrame{
         panelInput = new JPanel();
         display = new JTextArea();
         openJavaDirBtn = new JButton("OPEN");
+        downloadBtn = new JButton("DOWNLOAD");
         emptySpace = new JLabel();
         quitBtn = new JButton("QUIT");
         info = new Info();
@@ -46,15 +48,14 @@ public class View extends JFrame{
         display.append("  Operating system version\t" + info.getOSVersion() + "\n\n" );
         display.append("  JRE version number\t" + info.getJavaVersion() + "\n\n" );
         display.append("  Installation directory for JRE\t" + info.getJavaHomeDir() + "\n\n" );
-
-
-
         panelOutput.add(display);
 
 //------------ INPUT PANEL -------------
         openJavaDirBtn.setPreferredSize(new Dimension(70,28));
         panelInput.add(openJavaDirBtn);
-        emptySpace.setPreferredSize(new Dimension(412,28));
+        downloadBtn.setPreferredSize(new Dimension(110,28));
+        panelInput.add(downloadBtn);
+        emptySpace.setPreferredSize(new Dimension(302,28));
         panelInput.add(emptySpace);
         quitBtn.setPreferredSize(new Dimension(70,28));
         panelInput.add(quitBtn);
@@ -85,6 +86,17 @@ public class View extends JFrame{
 
         openJavaDirBtn.addActionListener(e -> {
             utils.openDiskDirectory(System.getProperty("java.home"));  //TODO ersätt system.get
+        });
+
+        downloadBtn.addActionListener(e -> {
+//            utils.openWebPaige(info.);
+//            Desktop desktop = Desktop.getDesktop();
+//            URI uri = URI.create("https://www.oracle.com/java/technologies/");
+//            try {
+//                desktop.browse(uri);
+//            } catch (IllegalArgumentException | IOException iae) {
+//                System.out.println("Url not found");
+//            }
         });
     }
 }
