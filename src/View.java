@@ -3,15 +3,18 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class View extends JFrame{
 
     //Controller controller;
     JPanel panelOutput, panelInput;
     JTextArea display;
-    JButton open;
+    JButton openJavaDirBtn;
     JLabel emptySpace;
-    JButton quit;
+    JButton quitBtn;
+    Info info;
 
 
     public View() {
@@ -25,9 +28,10 @@ public class View extends JFrame{
         panelOutput = new JPanel();
         panelInput = new JPanel();
         display = new JTextArea();
-        open = new JButton("OPEN");
+        openJavaDirBtn = new JButton("OPEN");
         emptySpace = new JLabel();
-        quit = new JButton("QUIT");
+        quitBtn = new JButton("QUIT");
+        info = new Info();
 
 //---------- OUTPUT PANEL --------------
         panelOutput.setBackground(new Color(43, 43, 43));
@@ -36,23 +40,23 @@ public class View extends JFrame{
         display.setEditable(false);
         display.setForeground(Color.white);
         display.setFont(new Font("Georgia", Font.PLAIN, 14));
-        display.append("  User account name\t" + System.getProperty("user.name") + "\n\n" );
-        display.append("  Operating system name\t" + System.getProperty("os.name") + "\n\n" );
-        display.append("  Operating system version\t" + System.getProperty("os.version") + "\n\n" );
-        display.append("  JRE version number\t" + System.getProperty("java.version") + "\n\n" );
-        display.append("  Installation directory for JRE\t" + System.getProperty("java.home") + "\n\n" );
+        display.append("  User account name\t" + info.getOSUserName() + "\n\n" );
+        display.append("  Operating system name\t" + info.getOSName() + "\n\n" );
+        display.append("  Operating system version\t" + info.getOSVersion() + "\n\n" );
+        display.append("  JRE version number\t" + info.getJavaVersion() + "\n\n" );
+        display.append("  Installation directory for JRE\t" + info.getJavaHomeDir() + "\n\n" );
 
 
 
         panelOutput.add(display);
 
 //------------ INPUT PANEL -------------
-        open.setPreferredSize(new Dimension(70,28));
-        panelInput.add(open);
+        openJavaDirBtn.setPreferredSize(new Dimension(70,28));
+        panelInput.add(openJavaDirBtn);
         emptySpace.setPreferredSize(new Dimension(412,28));
         panelInput.add(emptySpace);
-        quit.setPreferredSize(new Dimension(70,28));
-        panelInput.add(quit);
+        quitBtn.setPreferredSize(new Dimension(70,28));
+        panelInput.add(quitBtn);
 
 //-------------- FRAME -------------
         this.setTitle("Java Version");
@@ -69,11 +73,19 @@ public class View extends JFrame{
 
     public void createListeners() {
 
-        quit.addActionListener(e -> {
+        quitBtn.addActionListener(e -> {
             System.exit(0);
         });
 
-        open.addActionListener(e -> {
+        openJavaDirBtn.addActionListener(e -> {
+            Desktop desktop = Desktop.getDesktop();
+            File dirToOpen;
+            try {
+                dirToOpen = new File(info.getJavaHomeDir());
+                desktop.open(dirToOpen);
+            } catch (IllegalArgumentException | IOException iae) {
+                System.out.println("Directory not found");
+            }
         });
     }
 
