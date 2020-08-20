@@ -1,10 +1,8 @@
-//import com.company.Controller.Controller;
-//import com.company.Model.Response;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 
 public class View extends JFrame{
 
@@ -14,6 +12,7 @@ public class View extends JFrame{
     JButton openJavaDirBtn;
     JLabel emptySpace;
     JButton quitBtn;
+    JButton downloadBtn;
     Info info;
 
 
@@ -29,6 +28,7 @@ public class View extends JFrame{
         panelInput = new JPanel();
         display = new JTextArea();
         openJavaDirBtn = new JButton("OPEN");
+        downloadBtn = new JButton("DOWNLOAD");
         emptySpace = new JLabel();
         quitBtn = new JButton("QUIT");
         info = new Info();
@@ -40,6 +40,7 @@ public class View extends JFrame{
         display.setEditable(false);
         display.setForeground(Color.white);
         display.setFont(new Font("Georgia", Font.PLAIN, 14));
+
         display.append("  User account name\t" + info.getOSUserName() + "\n\n" );
         display.append("  Operating system name\t" + info.getOSName() + "\n\n" );
         display.append("  Operating system version\t" + info.getOSVersion() + "\n\n" );
@@ -47,13 +48,14 @@ public class View extends JFrame{
         display.append("  Installation directory for JRE\t" + info.getJavaHomeDir() + "\n\n" );
 
 
-
         panelOutput.add(display);
 
 //------------ INPUT PANEL -------------
         openJavaDirBtn.setPreferredSize(new Dimension(70,28));
         panelInput.add(openJavaDirBtn);
-        emptySpace.setPreferredSize(new Dimension(412,28));
+        downloadBtn.setPreferredSize(new Dimension(110,28));
+        panelInput.add(downloadBtn);
+        emptySpace.setPreferredSize(new Dimension(302,28));
         panelInput.add(emptySpace);
         quitBtn.setPreferredSize(new Dimension(70,28));
         panelInput.add(quitBtn);
@@ -85,6 +87,16 @@ public class View extends JFrame{
                 desktop.open(dirToOpen);
             } catch (IllegalArgumentException | IOException iae) {
                 System.out.println("Directory not found");
+            }
+        });
+
+        downloadBtn.addActionListener(e -> {
+            Desktop desktop = Desktop.getDesktop();
+            URI uri = URI.create("https://www.oracle.com/java/technologies/");
+            try {
+                desktop.browse(uri);
+            } catch (IllegalArgumentException | IOException iae) {
+                System.out.println("Url not found");
             }
         });
     }
