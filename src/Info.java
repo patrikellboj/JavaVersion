@@ -1,4 +1,5 @@
 public class Info {
+
     private final String OSUserName = System.getProperty("user.name");
     private final String OSName = System.getProperty("os.name");
     private final String OSVersion = System.getProperty("os.version");

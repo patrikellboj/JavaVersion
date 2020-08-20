@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 
 public class Utils {
 
@@ -15,6 +16,15 @@ public class Utils {
             desktop.open(dir);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    
+    public void openWebPage(String url){
+        URI uri = URI.create(url);
+        try {
+            Desktop.getDesktop().browse(uri);
+        } catch (IllegalArgumentException | IOException iae) {
+            System.out.println("Url not found");
         }
     }
 }

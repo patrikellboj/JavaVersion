@@ -30,7 +30,7 @@ public class View extends JFrame{
         panelOutput = new JPanel();
         panelInput = new JPanel();
         display = new JTextArea();
-        openJavaDirBtn = new JButton("OPEN");
+        openJavaDirBtn = new JButton("Open java directory");
         downloadBtn = new JButton("DOWNLOAD");
         emptySpace = new JLabel();
         quitBtn = new JButton("QUIT");
@@ -53,7 +53,7 @@ public class View extends JFrame{
 //------------ INPUT PANEL -------------
         openJavaDirBtn.setPreferredSize(new Dimension(70,28));
         panelInput.add(openJavaDirBtn);
-        downloadBtn.setPreferredSize(new Dimension(110,28));
+        downloadBtn.setPreferredSize(new Dimension(90,28));
         panelInput.add(downloadBtn);
         emptySpace.setPreferredSize(new Dimension(302,28));
         panelInput.add(emptySpace);
@@ -89,14 +89,7 @@ public class View extends JFrame{
         });
 
         downloadBtn.addActionListener(e -> {
-//            utils.openWebPaige(info.);
-//            Desktop desktop = Desktop.getDesktop();
-//            URI uri = URI.create("https://www.oracle.com/java/technologies/");
-//            try {
-//                desktop.browse(uri);
-//            } catch (IllegalArgumentException | IOException iae) {
-//                System.out.println("Url not found");
-//            }
+            utils.openWebPage("https://www.oracle.com/java/technologies/");
         });
     }
 }
