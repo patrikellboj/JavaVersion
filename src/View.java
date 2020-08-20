@@ -1,9 +1,7 @@
 //import com.company.Controller.Controller;
 //import com.company.Model.Response;
 
-import javax.rmi.CORBA.Util;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class View extends JFrame{
@@ -12,11 +10,13 @@ public class View extends JFrame{
     private Utils utils = new Utils();
 
     //Controller controller;
-    private JPanel panelOutput, panelInput;
-    private JTextArea display;
-    private JButton open;
-    private JLabel emptySpace;
-    private JButton quit;
+    JPanel panelOutput, panelInput;
+    JTextArea display;
+    JButton openJavaDirBtn;
+    JLabel emptySpace;
+    JButton quitBtn;
+    Info info;
+
 
     public View() {
         //controller = new Controller();
@@ -25,12 +25,14 @@ public class View extends JFrame{
     }
 
     public void createGUI(){
+
         panelOutput = new JPanel();
         panelInput = new JPanel();
         display = new JTextArea();
-        open = new JButton("Open java home directory");
+        openJavaDirBtn = new JButton("OPEN");
         emptySpace = new JLabel();
-        quit = new JButton("QUIT");
+        quitBtn = new JButton("QUIT");
+        info = new Info();
 
 //---------- OUTPUT PANEL --------------
         panelOutput.setBackground(new Color(43, 43, 43));
@@ -39,29 +41,30 @@ public class View extends JFrame{
         display.setEditable(false);
         display.setForeground(Color.white);
         display.setFont(new Font("Georgia", Font.PLAIN, 14));
-        display.append("  User account name\t" + System.getProperty("user.name") + "\n\n" );
-        display.append("  Operating system name\t" + System.getProperty("os.name") + "\n\n" );
-        display.append("  Operating system version\t" + System.getProperty("os.version") + "\n\n" );
-        display.append("  JRE version number\t" + System.getProperty("java.version") + "\n\n" );
-        display.append("  Installation directory for JRE\t " + System.getProperty("java.home") + "\n\n" );
+        display.append("  User account name\t" + info.getOSUserName() + "\n\n" );
+        display.append("  Operating system name\t" + info.getOSName() + "\n\n" );
+        display.append("  Operating system version\t" + info.getOSVersion() + "\n\n" );
+        display.append("  JRE version number\t" + info.getJavaVersion() + "\n\n" );
+        display.append("  Installation directory for JRE\t" + info.getJavaHomeDir() + "\n\n" );
+
+
+
         panelOutput.add(display);
 
 //------------ INPUT PANEL -------------
-
-        /*open.setPreferredSize(new Dimension(180,28));
-        panelInput.add(open);
-        emptySpace.setPreferredSize(new Dimension(310,28));
+        openJavaDirBtn.setPreferredSize(new Dimension(70,28));
+        panelInput.add(openJavaDirBtn);
+        emptySpace.setPreferredSize(new Dimension(412,28));
         panelInput.add(emptySpace);
-        quit.setPreferredSize(new Dimension(70,28));
-        panelInput.add(quit);
-        */
+        quitBtn.setPreferredSize(new Dimension(70,28));
+        panelInput.add(quitBtn);
 
-        Dimension buttonBounds = new Dimension(40,40);
-        panelInput.setLayout(new GridLayout(1,2));
-        open.setPreferredSize(buttonBounds);
-        panelInput.add(open);
-        quit.setPreferredSize(buttonBounds);
-        panelInput.add(quit);
+//        Dimension buttonBounds = new Dimension(40,40);
+//        panelInput.setLayout(new GridLayout(1,2));
+//        open.setPreferredSize(buttonBounds);
+//        panelInput.add(open);
+//        quit.setPreferredSize(buttonBounds);
+//        panelInput.add(quit);
 
 //-------------- FRAME -------------
         this.setTitle("Java Version");
@@ -76,11 +79,11 @@ public class View extends JFrame{
     }
 
     public void createListeners() {
-        quit.addActionListener(e -> {
+        quitBtn.addActionListener(e -> {
             System.exit(0);
         });
 
-        open.addActionListener(e -> {
+        openJavaDirBtn.addActionListener(e -> {
             utils.openDiskDirectory(System.getProperty("java.home"));  //TODO ersätt system.get
         });
     }
