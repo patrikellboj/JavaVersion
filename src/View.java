@@ -39,7 +39,7 @@ public class View extends JFrame {
 
 //---------- OUTPUT PANEL --------------
         panelOutput.setBackground(new Color(43, 43, 43));
-        display.setPreferredSize(new Dimension(562, 414));
+        display.setPreferredSize(new Dimension(562, 524));
         display.setBackground(new Color(64, 64, 64));
         display.setEditable(false);
         display.setForeground(Color.white);
@@ -48,12 +48,12 @@ public class View extends JFrame {
         display.append("  Operating system name\t" + info.getOSName() + "\n\n");
         display.append("  Operating system version\t" + info.getOSVersion() + "\n\n");
         display.append("  JRE version number\t" + info.getJavaVersion() + "\n\n");
-        display.append("  Installation directory for JRE\t" + info.getJavaHomeDir() + "\n\n");
+        display.append("  Installation folder: \t "+ info.getJavaHomeDir() + "\n\n \n");
 
         for (File root : info.getRoots()) {
-            display.append("  File system root: " + root.getAbsolutePath() + "\n\n");
-            display.append("  Total space: " + root.getTotalSpace() / convertByteToGb + " gb\n\n");
-            display.append("  Free space: " + root.getFreeSpace() / convertByteToGb + " gb\n\n");
+            display.append("  File system root: \t" + root.getAbsolutePath() + "\n\n");
+            display.append("  Total space: \t \t" + root.getTotalSpace() / convertByteToGb + " gb\n\n");
+            display.append("  Free space: \t \t" + root.getFreeSpace() / convertByteToGb + " gb\n\n \n");
             //display.append("  Usable space: " + root.getUsableSpace() / convertByteToGb+ " gb\n\n");
         }
 
@@ -82,7 +82,7 @@ public class View extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(panelOutput, BorderLayout.CENTER);
         this.add(panelInput, BorderLayout.SOUTH);
-        this.setSize(600, 500);
+        this.setSize(600, 610);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setResizable(false);
@@ -95,7 +95,7 @@ public class View extends JFrame {
         });
 
         openJavaDirBtn.addActionListener(e -> {
-            utils.openDiskDirectory(System.getProperty("java.home"));  //TODO ersätt system.get
+            utils.openDiskDirectory(info.getJavaHomeDir());
         });
 
         downloadBtn.addActionListener(e -> {
