@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
-public class View extends JFrame{
+public class View extends JFrame {
 
     //Program utils
     private Utils utils = new Utils();
@@ -17,6 +17,7 @@ public class View extends JFrame{
     JButton quitBtn;
     JButton downloadBtn;
     Info info;
+    int convertByteToGb = 1073741824;
 
 
     public View() {
@@ -25,7 +26,7 @@ public class View extends JFrame{
         createListeners();
     }
 
-    public void createGUI(){
+    public void createGUI() {
 
         panelOutput = new JPanel();
         panelInput = new JPanel();
@@ -38,26 +39,35 @@ public class View extends JFrame{
 
 //---------- OUTPUT PANEL --------------
         panelOutput.setBackground(new Color(43, 43, 43));
-        display.setPreferredSize(new Dimension(562,414));
+        display.setPreferredSize(new Dimension(562, 524));
         display.setBackground(new Color(64, 64, 64));
         display.setEditable(false);
         display.setForeground(Color.white);
         display.setFont(new Font("Georgia", Font.PLAIN, 14));
-        display.append("  User account name\t" + info.getOSUserName() + "\n\n" );
-        display.append("  Operating system name\t" + info.getOSName() + "\n\n" );
-        display.append("  Operating system version\t" + info.getOSVersion() + "\n\n" );
-        display.append("  JRE version number\t" + info.getJavaVersion() + "\n\n" );
-        display.append("  Installation directory for JRE\t" + info.getJavaHomeDir() + "\n\n" );
+        display.append("  User account name\t" + info.getOSUserName() + "\n\n");
+        display.append("  Operating system name\t" + info.getOSName() + "\n\n");
+        display.append("  Operating system version\t" + info.getOSVersion() + "\n\n");
+        display.append("  JRE version number\t" + info.getJavaVersion() + "\n\n");
+        display.append("  Installation folder: \t "+ info.getJavaHomeDir() + "\n\n \n");
+
+        for (File root : info.getRoots()) {
+            display.append("  File system root: \t" + root.getAbsolutePath() + "\n\n");
+            display.append("  Total space: \t \t" + root.getTotalSpace() / convertByteToGb + " gb\n\n");
+            display.append("  Free space: \t \t" + root.getFreeSpace() / convertByteToGb + " gb\n\n \n");
+            //display.append("  Usable space: " + root.getUsableSpace() / convertByteToGb+ " gb\n\n");
+        }
+
+
         panelOutput.add(display);
 
 //------------ INPUT PANEL -------------
-        openJavaDirBtn.setPreferredSize(new Dimension(150,28));
+        openJavaDirBtn.setPreferredSize(new Dimension(150, 28));
         panelInput.add(openJavaDirBtn);
-        downloadBtn.setPreferredSize(new Dimension(150,28));
+        downloadBtn.setPreferredSize(new Dimension(150, 28));
         panelInput.add(downloadBtn);
-        emptySpace.setPreferredSize(new Dimension(182,28));
+        emptySpace.setPreferredSize(new Dimension(182, 28));
         panelInput.add(emptySpace);
-        quitBtn.setPreferredSize(new Dimension(70,28));
+        quitBtn.setPreferredSize(new Dimension(70, 28));
         panelInput.add(quitBtn);
 
 //        Dimension buttonBounds = new Dimension(40,40);
@@ -72,7 +82,7 @@ public class View extends JFrame{
         this.setLayout(new BorderLayout());
         this.add(panelOutput, BorderLayout.CENTER);
         this.add(panelInput, BorderLayout.SOUTH);
-        this.setSize(600, 500);
+        this.setSize(600, 610);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setResizable(false);
@@ -85,7 +95,7 @@ public class View extends JFrame{
         });
 
         openJavaDirBtn.addActionListener(e -> {
-            utils.openDiskDirectory(System.getProperty("java.home"));  //TODO ersätt system.get
+            utils.openDiskDirectory(info.getJavaHomeDir());
         });
 
         downloadBtn.addActionListener(e -> {
