@@ -1,3 +1,5 @@
+import java.io.File;
+
 public class Info {
 
     private final String OSUserName = System.getProperty("user.name");
@@ -5,6 +7,11 @@ public class Info {
     private final String OSVersion = System.getProperty("os.version");
     private final String JavaVersion = System.getProperty("java.version");
     private final String JavaHomeDir = System.getProperty("java.home");
+    private File[] roots = File.listRoots();
+
+    public File[] getRoots() {
+        return roots;
+    }
 
     public String getOSUserName() {
         return OSUserName;
